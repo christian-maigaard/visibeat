@@ -5,7 +5,7 @@ export const colors = {
   beat: {
     even: "#0D0D0F",
     odd: "#111115",
-    pulseTop: "rgba(57, 255, 20, 0.24)",
+    pulseTop: "rgba(57, 255, 20, 0.30)",
     pulseBottom: "rgba(57, 255, 20, 0.08)",
   },
   border: "#1a2e1a",
