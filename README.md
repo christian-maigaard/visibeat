@@ -16,7 +16,7 @@ A React Native app built with [Expo](https://expo.dev) and [Expo Router](https:/
    npm install
    ```
 
-2. **Create a dev build** (required — this project uses `expo-dev-client` and won't run in Expo Go)
+2. **Build and install the dev client**
 
    ```bash
    npm run ios
@@ -24,15 +24,17 @@ A React Native app built with [Expo](https://expo.dev) and [Expo Router](https:/
    npm run android
    ```
 
-   This compiles the native app and installs it on your simulator/device. You only need to do this once, or again after adding new native dependencies.
+   This project uses [CNG](https://docs.expo.dev/workflow/continuous-native-generation/) (Continuous Native Generation) with `expo-dev-client`. Expo generates the native `ios/`/`android/` folders from `app.json` and compiles a custom development app — your personal replacement for Expo Go, with your exact native dependencies baked in. The generated folders are not committed to git.
 
-3. **Start the dev server** for subsequent development sessions
+   **You only need to do this once**, or again whenever you add a package that includes native code.
+
+3. **Start the dev server** for day-to-day development
 
    ```bash
    npm start
    ```
 
-   Then press `i` to open iOS or scan the QR code with your device.
+   The dev client app on your simulator connects to Metro and loads your JS bundle. Native code changes require step 2 again; JS/UI changes just need `npm start`.
 
 ## Project structure
 
