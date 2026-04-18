@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import { GlassView, isLiquidGlassAvailable } from "expo-glass-effect";
 import { View, StyleSheet } from "react-native";
 
@@ -22,11 +23,10 @@ const styles = StyleSheet.create({
     borderRadius: WHEEL_SIZE / 2,
     overflow: "hidden",
     borderWidth: 0.5,
-    borderColor: "rgba(255, 255, 255, 0.18)",
-    boxShadow:
-      "0 20px 60px rgba(0, 0, 0, 0.8), 0 8px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
+    borderColor: colors.wheel.border,
+    boxShadow: `0 20px 60px rgba(0, 0, 0, 0.8), 0 8px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 ${colors.wheel.highlightInset}`,
   },
   wheelFallback: {
-    backgroundColor: "rgba(28, 28, 30, 0.9)",
+    backgroundColor: colors.wheel.background,
   },
 });

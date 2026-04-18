@@ -9,6 +9,11 @@ export const colors = {
     pulseBottom: "rgba(57, 255, 20, 0.08)",
   },
   border: "#1a2e1a",
+  wheel: {
+    background: "rgba(28, 28, 30, 0.9)",
+    border: "rgba(255, 255, 255, 0.18)",
+    highlightInset: "rgba(255, 255, 255, 0.05)",
+  },
   text: {
     primary: "#FFFFFF",
     muted: "#6B7280",
@@ -23,6 +28,7 @@ export const spacing = {
   xl: 24,
   xxl: 32,
   xxxl: 64,
+  xxxxl: 100,
 } as const;
 
 export const fonts = Platform.select({

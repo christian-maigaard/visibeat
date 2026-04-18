@@ -39,8 +39,10 @@ const Index: React.FC = () => {
           beats={timeSignature.beats}
           note={timeSignature.note}
         />
-        <View style={styles.center}>
+        <View style={styles.section}>
           <BpmDisplay bpm={BPM} />
+        </View>
+        <View style={styles.section}>
           <ClickWheel />
         </View>
       </View>
@@ -57,17 +59,13 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "space-between",
     paddingHorizontal: spacing.xl,
-    paddingTop: spacing.xxxl,
-    paddingBottom: spacing.xxl,
+    paddingTop: spacing.xxxxl,
+    paddingBottom: spacing.xxxxl,
   },
-  center: {
+  section: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    gap: spacing.xl,
-    marginBottom: spacing.xxl,
+    justifyContent: "center",
   },
 });
