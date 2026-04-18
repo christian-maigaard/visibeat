@@ -4,6 +4,7 @@ import { Text, View, StyleSheet } from "react-native";
 import BeatBackground from "@/components/BeatBackground";
 import TimeSignatureLabel from "@/components/TimeSignatureLabel";
 import BpmDisplay from "@/components/BpmDisplay";
+import ClickWheel from "@/components/ClickWheel";
 
 const BPM = 120;
 
@@ -40,6 +41,7 @@ const Index: React.FC = () => {
         />
         <View style={styles.center}>
           <BpmDisplay bpm={BPM} />
+          <ClickWheel />
         </View>
       </View>
     </View>
