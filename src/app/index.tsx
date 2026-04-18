@@ -1,18 +1,23 @@
 import { colors, spacing } from "@/constants/theme";
 import { useState, useEffect, useRef } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import BeatBackground from "@/components/BeatBackground";
 import TimeSignatureLabel from "@/components/TimeSignatureLabel";
 import BpmDisplay from "@/components/BpmDisplay";
-import ClickWheel from "@/components/ClickWheel";
+import ClickWheel from "@/components/ClickWheel/ClickWheel";
 
-const BPM = 120;
+const BPM_MIN = 40;
+const BPM_MAX = 240;
 
 const Index: React.FC = () => {
   const [timeSignature, _] = useState({ beats: 4, note: 4 }); // TODO: make this dynamic later
+  const [bpm, setBpm] = useState(120);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentBeat, setCurrentBeat] = useState(0);
   const beatRef = useRef(0);
+
+  const increaseBpm = () => setBpm((v) => Math.min(v + 1, BPM_MAX));
+  const decreaseBpm = () => setBpm((v) => Math.max(v - 1, BPM_MIN));
 
   // TODO TEST cycle code, remove this later
   useEffect(() => {
@@ -22,10 +27,10 @@ const Index: React.FC = () => {
         beatRef.current = (beatRef.current + 1) % timeSignature.beats;
         setCurrentBeat(beatRef.current);
       },
-      (60 / BPM) * 1000,
+      (60 / bpm) * 1000,
     );
     return () => clearInterval(interval);
-  }, [isPlaying, timeSignature]);
+  }, [isPlaying, timeSignature, bpm]);
 
   return (
     <View style={styles.background}>
@@ -40,10 +45,15 @@ const Index: React.FC = () => {
           note={timeSignature.note}
         />
         <View style={styles.section}>
-          <BpmDisplay bpm={BPM} />
+          <BpmDisplay bpm={bpm} />
         </View>
         <View style={styles.section}>
-          <ClickWheel />
+          <ClickWheel
+            isPlaying={isPlaying}
+            onToggle={() => setIsPlaying((v) => !v)}
+            onIncrease={increaseBpm}
+            onDecrease={decreaseBpm}
+          />
         </View>
       </View>
     </View>
