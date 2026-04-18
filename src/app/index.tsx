@@ -2,11 +2,13 @@ import { colors, spacing } from "@/constants/theme";
 import { useState, useEffect, useRef } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import BeatBackground from "@/components/BeatBackground";
+import TimeSignatureLabel from "@/components/TimeSignatureLabel";
+import BpmDisplay from "@/components/BpmDisplay";
 
 const BPM = 120;
 
 const Index: React.FC = () => {
-  const [timeSignature, _] = useState({ beats: 4, note: 4 });
+  const [timeSignature, _] = useState({ beats: 4, note: 4 }); // TODO: make this dynamic later
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentBeat, setCurrentBeat] = useState(0);
   const beatRef = useRef(0);
@@ -32,9 +34,13 @@ const Index: React.FC = () => {
         currentBeat={currentBeat}
       />
       <View style={styles.content}>
-        <Text style={styles.title}>
-          {timeSignature.beats}/{timeSignature.note} Time
-        </Text>
+        <TimeSignatureLabel
+          beats={timeSignature.beats}
+          note={timeSignature.note}
+        />
+        <View style={styles.center}>
+          <BpmDisplay bpm={BPM} />
+        </View>
       </View>
     </View>
   );
@@ -47,14 +53,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  title: {
-    color: colors.text.muted,
-    fontSize: 20,
-    fontWeight: "500",
-    letterSpacing: 1.6,
-    textTransform: "uppercase",
-    textAlign: "center",
-  },
   content: {
     flex: 1,
     alignItems: "center",
@@ -62,5 +60,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingTop: spacing.xxxl,
     paddingBottom: spacing.xxl,
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: spacing.xl,
+    marginBottom: spacing.xxl,
   },
 });

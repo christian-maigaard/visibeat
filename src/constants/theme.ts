@@ -40,6 +40,25 @@ export const fonts = Platform.select({
   },
 })!;
 
+export const fontSizes = {
+  xs: 10,
+  sm: 12,
+  md: 14,
+  lg: 16,
+  xl: 20,
+  xxl: 24,
+  xxxl: 32,
+  display: 72,
+} as const;
+
+export const fontWeights = {
+  light: "300",
+  regular: "400",
+  medium: "500",
+  semibold: "600",
+  bold: "700",
+} as const;
+
 export const layout = {
   maxContentWidth: 800,
   bottomTabInset: Platform.select({ ios: 50, android: 80 }) ?? 0,
