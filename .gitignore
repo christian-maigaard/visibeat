@@ -8,6 +8,9 @@ expo-env.d.ts
 # dependencies
 node_modules/
 
+# Expo example folder
+app-example/
+
 # Expo
 .expo/
 dist/
