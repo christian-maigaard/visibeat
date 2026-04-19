@@ -1,12 +1,12 @@
 import { colors } from "@/constants/theme";
 import { LinearGradient } from "expo-linear-gradient";
-import { SymbolView } from "expo-symbols";
+import { View, Pressable, StyleSheet } from "react-native";
+import { Icon } from "./Icon";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
 } from "react-native-reanimated";
-import { View, Pressable, StyleSheet } from "react-native";
 import { WHEEL_SIZE } from "./constants";
 
 const CENTER_SIZE = 112;
@@ -23,7 +23,7 @@ const PlayButton: React.FC = () => (
       },
     ]}
   >
-    <SymbolView name="play.fill" size={40} tintColor={colors.text.primary} />
+    <Icon name="play.fill" size={40} color={colors.text.primary} />
   </View>
 );
 
@@ -40,7 +40,7 @@ const StopButton: React.FC = () => (
       },
     ]}
   >
-    <SymbolView name="pause.fill" size={40} tintColor={colors.wheel.playColor} />
+    <Icon name="pause.fill" size={40} color={colors.wheel.playColor} />
   </LinearGradient>
 );
 

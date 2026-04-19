@@ -1,7 +1,7 @@
 import { colors } from "@/constants/theme";
-import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
+import { Icon } from "./Icon";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -9,8 +9,9 @@ import Animated, {
 } from "react-native-reanimated";
 import { WHEEL_SIZE, RING_BUTTON_SIZE } from "./constants";
 
+
 interface RingButtonProps {
-  icon: SymbolViewProps["name"];
+  icon: "plus" | "minus";
   onPress: () => void;
   style: object;
 }
@@ -40,12 +41,7 @@ export const RingButton: React.FC<RingButtonProps> = ({
           pressed && styles.ringButtonPressed,
         ]}
       >
-        <SymbolView
-          name={icon}
-          size={24}
-          tintColor={colors.wheel.playColor}
-          weight="semibold"
-        />
+        <Icon name={icon} size={24} color={colors.wheel.playColor} />
       </Pressable>
     </Animated.View>
   );
