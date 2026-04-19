@@ -7,8 +7,8 @@ import BpmDisplay from "@/components/BpmDisplay";
 import ClickWheel from "@/components/ClickWheel/ClickWheel";
 import { useMetronome } from "@/hooks/useMetronome";
 
-const BPM_MIN = 40;
-const BPM_MAX = 240;
+const BPM_MIN = 20;
+const BPM_MAX = 600;
 
 const Index: React.FC = () => {
   const [timeSignature, _] = useState({ beats: 4, note: 4 }); // TODO: make this dynamic later
