@@ -14,7 +14,7 @@ const BPM_MAX = 600;
 const Index: React.FC = () => {
   const [timeSignature, _] = useState({ beats: 4, note: 4 }); // TODO: make this dynamic later
   const [bpm, setBpm] = useState(120);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentBeat, setCurrentBeat] = useState(0);
 
   const increaseBpm = () => setBpm((v) => Math.min(v + 1, BPM_MAX));
@@ -22,10 +22,13 @@ const Index: React.FC = () => {
 
   const playTick = useTickSound();
 
-  const onBeat = useCallback((beat: number) => {
-    setCurrentBeat(beat);
-    playTick(beat);
-  }, [playTick]);
+  const onBeat = useCallback(
+    (beat: number) => {
+      setCurrentBeat(beat);
+      playTick(beat);
+    },
+    [playTick],
+  );
 
   useMetronome({ bpm, beats: timeSignature.beats, isPlaying, onBeat });
 
