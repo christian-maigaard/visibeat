@@ -17,7 +17,6 @@ export const useMetronome = ({ bpm, beats, isPlaying, onBeat }: UseMetronomeOpti
 
   useEffect(() => { bpmShared.value = bpm; }, [bpm]);
   useEffect(() => { beatsShared.value = beats; }, [beats]);
-
   useEffect(() => {
     if (!isPlaying) {
       lastBeatTime.value = 0;
@@ -25,9 +24,7 @@ export const useMetronome = ({ bpm, beats, isPlaying, onBeat }: UseMetronomeOpti
     }
   }, [isPlaying]);
 
-  useFrameCallback((frameInfo) => {
-    if (!isPlaying) return;
-
+  const frameCallback = useFrameCallback((frameInfo) => {
     const now = frameInfo.timestamp;
     const interval = 60000 / bpmShared.value;
 
@@ -48,5 +45,9 @@ export const useMetronome = ({ bpm, beats, isPlaying, onBeat }: UseMetronomeOpti
       currentBeat.value = next;
       scheduleOnRN(onBeat, next);
     }
-  }, isPlaying);
+  }, false);
+
+  useEffect(() => {
+    frameCallback.setActive(isPlaying);
+  }, [isPlaying]);
 };
