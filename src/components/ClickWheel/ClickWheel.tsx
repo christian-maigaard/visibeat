@@ -4,6 +4,8 @@ import { View, StyleSheet } from "react-native";
 import CenterButton from "@/components/ClickWheel/CenterButton";
 import { RingButton } from "./RingButton";
 import { RING_BUTTON_OFFSET, RING_BUTTON_INSET, WHEEL_SIZE } from "./constants";
+import { GestureDetector } from "react-native-gesture-handler";
+import { useRotaryGesture } from "./useRotaryGesture";
 
 interface ClickWheelProps {
   isPlaying: boolean;
@@ -19,13 +21,19 @@ const WheelShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <View style={[styles.wheel, styles.wheelFallback]}>{children}</View>;
 };
 
-const ClickWheel: React.FC<ClickWheelProps> = ({ isPlaying, onToggle, onIncrease, onDecrease }) => (
-  <WheelShell>
-    <CenterButton isPlaying={isPlaying} onToggle={onToggle} />
-    <RingButton icon="plus" onPress={onIncrease} style={{ top: RING_BUTTON_OFFSET, right: RING_BUTTON_INSET }} />
-    <RingButton icon="minus" onPress={onDecrease} style={{ top: RING_BUTTON_OFFSET, left: RING_BUTTON_INSET }} />
-  </WheelShell>
-);
+const ClickWheel: React.FC<ClickWheelProps> = ({ isPlaying, onToggle, onIncrease, onDecrease }) => {
+  const rotaryGesture = useRotaryGesture({ onIncrease, onDecrease });
+
+  return (
+    <GestureDetector gesture={rotaryGesture}>
+      <WheelShell>
+        <CenterButton isPlaying={isPlaying} onToggle={onToggle} />
+        <RingButton icon="plus" onPress={onIncrease} style={{ top: RING_BUTTON_OFFSET, right: RING_BUTTON_INSET }} />
+        <RingButton icon="minus" onPress={onDecrease} style={{ top: RING_BUTTON_OFFSET, left: RING_BUTTON_INSET }} />
+      </WheelShell>
+    </GestureDetector>
+  );
+};
 
 export default ClickWheel;
 
