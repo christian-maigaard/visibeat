@@ -1,10 +1,11 @@
 import { colors, spacing } from "@/constants/theme";
-import { useState, useEffect, useRef } from "react";
+import { useState, useCallback } from "react";
 import { View, StyleSheet } from "react-native";
 import BeatBackground from "@/components/BeatBackground";
 import TimeSignatureLabel from "@/components/TimeSignatureLabel";
 import BpmDisplay from "@/components/BpmDisplay";
 import ClickWheel from "@/components/ClickWheel/ClickWheel";
+import { useMetronome } from "@/hooks/useMetronome";
 
 const BPM_MIN = 40;
 const BPM_MAX = 240;
@@ -14,23 +15,15 @@ const Index: React.FC = () => {
   const [bpm, setBpm] = useState(120);
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentBeat, setCurrentBeat] = useState(0);
-  const beatRef = useRef(0);
 
   const increaseBpm = () => setBpm((v) => Math.min(v + 1, BPM_MAX));
   const decreaseBpm = () => setBpm((v) => Math.max(v - 1, BPM_MIN));
 
-  // TODO TEST cycle code, remove this later
-  useEffect(() => {
-    if (!isPlaying) return;
-    const interval = setInterval(
-      () => {
-        beatRef.current = (beatRef.current + 1) % timeSignature.beats;
-        setCurrentBeat(beatRef.current);
-      },
-      (60 / bpm) * 1000,
-    );
-    return () => clearInterval(interval);
-  }, [isPlaying, timeSignature, bpm]);
+  const onBeat = useCallback((beat: number) => {
+    setCurrentBeat(beat);
+  }, []);
+
+  useMetronome({ bpm, beats: timeSignature.beats, isPlaying, onBeat });
 
   return (
     <View style={styles.background}>
