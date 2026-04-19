@@ -6,6 +6,7 @@ import TimeSignatureLabel from "@/components/TimeSignatureLabel";
 import BpmDisplay from "@/components/BpmDisplay";
 import ClickWheel from "@/components/ClickWheel/ClickWheel";
 import { useMetronome } from "@/hooks/useMetronome";
+import { useTickSound } from "@/hooks/useTickSound";
 
 const BPM_MIN = 20;
 const BPM_MAX = 600;
@@ -19,9 +20,12 @@ const Index: React.FC = () => {
   const increaseBpm = () => setBpm((v) => Math.min(v + 1, BPM_MAX));
   const decreaseBpm = () => setBpm((v) => Math.max(v - 1, BPM_MIN));
 
+  const playTick = useTickSound();
+
   const onBeat = useCallback((beat: number) => {
     setCurrentBeat(beat);
-  }, []);
+    playTick(beat);
+  }, [playTick]);
 
   useMetronome({ bpm, beats: timeSignature.beats, isPlaying, onBeat });
 
